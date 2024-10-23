@@ -8,11 +8,12 @@ public class Area {
      * @param width  - represents the width of the triangle
      * @param height - represents the height of the triangle
      * @return double - The area of triangle calculated by (width * height) / 2
-     * @throws ArithmeticException - If the width or height of triangle is less than or equal to Zero
+     * @throws ArithmeticException - If the width or height of triangle is less than
+     *                             or equal to Zero
      */
     public double calculateAreaOfTriangle(double width, double height) {
-        if(width <=0 || height <= 0)
-        throw new ArithmeticException("Width and height must be greater than Zero!");
+        if (width <= 0 || height <= 0)
+            throw new ArithmeticException("Width and height must be greater than Zero!");
         double area = (width * height) / 2;
         return area;
     }
@@ -23,12 +24,13 @@ public class Area {
      * @param width  - represents the width of the Rectangle
      * @param height - represents the height of the Rectangle
      * @return double - Area of Rectangle calculated by width * height
-     * @throws ArithmeticException - If the width or height of Rectangle is less than or equal to Zero
-
+     * @throws ArithmeticException - If the width or height of Rectangle is less
+     *                             than or equal to Zero
+     * 
      */
     public double calculateAreaOfRectangle(double width, double height) {
-        if(width <=0 || height <= 0)
-        throw new ArithmeticException("Width and height must be greater than Zero!");
+        if (width <= 0 || height <= 0)
+            throw new ArithmeticException("Width and height must be greater than Zero!");
         double area = width * height;
         return area;
     }
@@ -38,12 +40,13 @@ public class Area {
      * 
      * @param width - The width of the square
      * @return double - Area of Square calculated by width * width
-     * @throws ArithmeticException - If the width  of Square is less than or equal to Zero
-
+     * @throws ArithmeticException - If the width of Square is less than or equal to
+     *                             Zero
+     * 
      */
     public double calculateAreaOfSquare(double width) {
-        if(width <=0)
-        throw new ArithmeticException("Width must be greater than Zero!");
+        if (width <= 0)
+            throw new ArithmeticException("Width must be greater than Zero!");
         double area = width * width;
         return area;
     }
@@ -53,12 +56,13 @@ public class Area {
      * 
      * @param radius- The radius of the circle
      * @return double - Area of circle calculated by PI * radius * radius
-     * @throws ArithmeticException - If the radius of circle is less than or equal to Zero
-
+     * @throws ArithmeticException - If the radius of circle is less than or equal
+     *                             to Zero
+     * 
      */
     public double calculateAreaOfCircle(double radius) {
-        if(radius <=0)
-        throw new ArithmeticException("Radius must be greater than Zero!");
+        if (radius <= 0)
+            throw new ArithmeticException("Radius must be greater than Zero!");
         final double PI = 3.14;
         double area = PI * radius * radius;
         return area;
@@ -87,7 +91,8 @@ public class Area {
                     double heightOfTriangle = scanner.nextInt();
                     try {
                         System.out.println(
-                            "Area of Triangle is: " + area.calculateAreaOfTriangle(widthOfTriangle, heightOfTriangle));
+                                "Area of Triangle is: "
+                                        + area.calculateAreaOfTriangle(widthOfTriangle, heightOfTriangle));
                     } catch (ArithmeticException e) {
                         System.out.println(e.getMessage());
                     }
@@ -101,11 +106,11 @@ public class Area {
                     double heightOfRectangle = scanner.nextInt();
                     try {
                         System.out.println("Area of Triangle is: "
-                            + area.calculateAreaOfRectangle(widthOfRectangle, heightOfRectangle));
+                                + area.calculateAreaOfRectangle(widthOfRectangle, heightOfRectangle));
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
-                    
+
                     break;
 
                 case 3:
@@ -113,11 +118,11 @@ public class Area {
                     double widthOfSquare = scanner.nextInt();
                     try {
                         System.out.println("Area of Square is: "
-                            + area.calculateAreaOfSquare(widthOfSquare));
+                                + area.calculateAreaOfSquare(widthOfSquare));
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
-                    
+
                     break;
 
                 case 4:
@@ -125,11 +130,11 @@ public class Area {
                     double radiusOfCircle = scanner.nextInt();
                     try {
                         System.out.println("Area of Triangle is: "
-                            + area.calculateAreaOfCircle(radiusOfCircle));
+                                + area.calculateAreaOfCircle(radiusOfCircle));
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
-                    
+
                     break;
                 default:
                     System.out.println("Exited!");

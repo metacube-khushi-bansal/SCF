@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 
 public class StringOperations {
@@ -13,8 +12,13 @@ public class StringOperations {
     public int compareStrings(String string1, String string2) {
         int length1 = string1.length();
         int length2 = string2.length();
+        
+        if(length1 == 0 || length2 == 0 )
+        {
+            throw new IllegalArgumentException("Empty String ! Enter valid");
+        }
 
-        if (length1 > length1 || length1 < length2)
+        if (length1 > length2 || length1 < length2)
             return 0;
 
         else {
@@ -34,6 +38,10 @@ public class StringOperations {
      */
     public String ReverseString(String string) {
         String reverse = "";
+        if(string.length() == 0 )
+        {
+            throw new IllegalArgumentException("Empty String ! Enter valid");
+        }
         char currentChar;
         for (int i = 0; i < string.length(); i++) {
             currentChar = string.charAt(i);
@@ -52,6 +60,10 @@ public class StringOperations {
      * @return String- returns the required string
      */
     public String replaceLowerCaseCharacters(String string) {
+        if(string.length() == 0 )
+        {
+            throw new IllegalArgumentException("Empty String ! Enter valid");
+        }
         String result = "";
         for (int i = 0; i < string.length(); i++) {
             char currentChar = string.charAt(i);
@@ -74,6 +86,10 @@ public class StringOperations {
      */
     public String calcLargestWordInString(String string) {
         int length = string.length();
+        if(length == 0 )
+        {
+            throw new IllegalArgumentException("Empty String ! Enter valid");
+        }
         String largest = "";
         String currentWord = "";
         for (int i = 0; i < length; i++) {
@@ -87,7 +103,6 @@ public class StringOperations {
 
         if (currentWord.length() >= largest.length())
             largest = currentWord;
-
         return largest;
     }
 
@@ -95,13 +110,23 @@ public class StringOperations {
 
         StringOperations operations = new StringOperations();
         Scanner scanner = new Scanner(System.in);
+        String S1="",S2 = "";
+        try {
+            System.out.println("Enter any string S1: ");
+            S1 = scanner.nextLine();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+      
+        try {
+            System.out.println("Enter any string S2: ");
+            S2 = scanner.nextLine();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        
 
-        System.out.println("Enter any string S1: ");
-        String S1 = scanner.nextLine();
-
-        System.out.println("Enter any string S2: ");
-        String S2 = scanner.nextLine();
-
+        
         scanner.close();
         int result = operations.compareStrings(S1, S2);
         if (result == 1)

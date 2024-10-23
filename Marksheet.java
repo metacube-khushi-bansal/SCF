@@ -37,6 +37,7 @@ public class Marksheet {
     public int maximumOfAllGrades() {
         if (students.size() == 0)
             throw new ArithmeticException("Cannot calculate MAximum grade: No. of Students is zero");
+            //negative grades  
         int maximumGrade = students.get(0).getGrade(); // initialise with 0th student
         for (Student student : students) {
             maximumGrade = Math.max(maximumGrade, student.getGrade());
@@ -97,14 +98,13 @@ public class Marksheet {
         }
         scanner.close();
         Marksheet marksheet = new Marksheet(students);
-        try{
+        try {
             System.out.printf("Average of grades of all students is: %.2f\n", marksheet.calcAvgOfGrades());
             System.out.println("Maximum of grades of all students is: " + marksheet.maximumOfAllGrades());
             System.out.println("Minimum of grades of all students is: " + marksheet.minimumOfAllGrades());
             System.out.printf("Pecentage of passed students is: %.2f\n", marksheet.calcPercentageOfStudentsPassed());
+        } catch (ArithmeticException e) {
+            System.out.println(e.getMessage());
         }
-       catch(ArithmeticException e ){
-        System.out.println(e.getMessage());
-       }
     }
 }

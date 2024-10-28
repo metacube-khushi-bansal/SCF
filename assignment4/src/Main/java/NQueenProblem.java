@@ -2,6 +2,7 @@ package Main.java;
 
 public class NQueenProblem {
 
+    // printing the solution 
     private void printSolution(int [][] board,int dimensionOfMatrix){
         System.out.println(dimensionOfMatrix+ " queens can be placed as: ");
         for(int i = 0; i< dimensionOfMatrix;i++){
@@ -12,6 +13,7 @@ public class NQueenProblem {
         }
     } 
 
+    // to check if we can place the Queen at the (row,col)without any other queen attacking
     private boolean isSafe(int board[][], int row, int col, int dimensionOfMatrix) {
         int dupRow = row;
         int dupCol = col;
@@ -50,18 +52,20 @@ public class NQueenProblem {
     }
 
     private boolean solveNQ(int[][] board, int col, int dimensionOfMatrix) {
+        // If reached at the point more than the size of matrix
         if (col >= dimensionOfMatrix)
             return true;
 
+            // looping through each row and checking if we can place the Queen at the particular (row,col)
         for (int row = 0; row < dimensionOfMatrix; row++) {
 
             if (isSafe(board, row, col, dimensionOfMatrix)) {
-                board[row][col] = 1;
+                board[row][col] = 1;    // if queen can be placed 
 
-                if (solveNQ(board, col + 1, dimensionOfMatrix) == true)
+                if (solveNQ(board, col + 1, dimensionOfMatrix) == true) // recursively calling the solve for next column
                     return true;
 
-                board[row][col] = 0;
+                board[row][col] = 0;  // backtrack to cover the next case
             }
 
         }
@@ -79,12 +83,15 @@ public class NQueenProblem {
                 board[i][j] = 0;
             }
         }
-
+        
+        // calling the utility method solveNQ to find if solution exist , 
         if (solveNQ(board, 0, dimensionOfMatrix) == false) {
             System.out.println("Solution does not exist");
             return false;
         }
 
+
+        //printing the solution obtained
         printSolution(board,dimensionOfMatrix);
         return true;
 

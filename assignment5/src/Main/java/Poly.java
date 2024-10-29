@@ -1,7 +1,10 @@
 package Main.java;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 public final class Poly {
     private final int[][] polynomial;
@@ -62,8 +65,14 @@ public final class Poly {
      * @param polynomial2 - the second input polynomial
      * @return int[][]- the resultant polynomial array after addition
      */
-    public int[][] sumOfPolynomial(int[][] polynomial1, int[][] polynomial2) {
+    public int[][] sumOfPolynomial(Poly poly1, Poly poly2) {
         List<int[]> result = new ArrayList<>();
+
+        int[][] polynomial1 = poly1.polynomial;
+        Arrays.sort(polynomial1, Comparator.comparingInt(a -> a[1])); // sorting on the basis of power
+
+        int[][] polynomial2 = poly2.polynomial;
+        Arrays.sort(polynomial2, Comparator.comparingInt(a -> a[1])); // sorting on the basis of power
 
         int i = 0, j = 0;
         while (i < polynomial1.length && j < polynomial2.length) {
@@ -75,11 +84,11 @@ public final class Poly {
                 i++;
                 j++;
             } else if (polynomial1[i][1] > polynomial2[j][1]) { // poly1 has a higher power term
-                result.add(polynomial1[i]);
-                i++;
-            } else { // poly2 has a higher power term
                 result.add(polynomial2[j]);
                 j++;
+            } else { // poly2 has a higher power term
+                result.add(polynomial1[i]);
+                i++;
             }
         }
 
@@ -104,7 +113,10 @@ public final class Poly {
      * @param polynomial2 - the second input polynomial
      * @return int[][]- the resultant polynomial array after multiplication
      */
-    public int[][] multiplicationOfPolynomial(int[][] polynomial1, int[][] polynomial2) {
+    public int[][] multiplicationOfPolynomial(Poly poly1, Poly poly2) {
+        int[][] polynomial1 = poly1.polynomial;
+        int[][] polynomial2 = poly2.polynomial;
+
         List<int[]> termsList = new ArrayList<>();
         // Multiply each term in poly1 with each term in poly2 
         for (int[] term1 : polynomial1) {
@@ -121,12 +133,13 @@ public final class Poly {
 
     }
 
-    // 
+    //
     /**
      * Helper method to add terms and combine like terms
-     * @param termsList - represent the polynomial 
+     * 
+     * @param termsList    - represent the polynomial
      * @param coefficient- represent the coefficeint
-     * @param power - represent the power
+     * @param power        - represent the power
      */
     private static void addTerm(List<int[]> termsList, int coefficient, int power) {
         for (int[] term : termsList) {
@@ -141,22 +154,72 @@ public final class Poly {
         }
     }
 
-    public static void main(String[] args) {
-        int[][] polynomial = { { 3, 0 }, { 0, 1 }, { 5, 2 } };
-        Poly poly = new Poly(polynomial);
-        System.out.println(poly.evaluate(1));
-        System.out.println(poly.degreeOfPolynomial(polynomial));
+    /**
+     * Helper method to input polynomial from user
+     * 
+     * @return int[][]- return the input polynomial
+     */
+    public static int[][] inputPolynomial() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of terms: ");
+        int numTerms = scanner.nextInt();
+        int[][] terms = new int[numTerms][2];
 
-        int[][] polynomial2 = { { 5, 0 }, { 4, 2 } };
-        int[][] addition = poly.sumOfPolynomial(polynomial, polynomial2);
-        int[][] multiplication = poly.multiplicationOfPolynomial(polynomial, polynomial2);
-        for (int i = 0; i < addition.length; i++) {
-            System.out.print(addition[i][0] + " " + addition[i][1]);
-            System.out.println();
+        for (int i = 0; i < numTerms; i++) {
+            System.out.print("Enter coefficient for term " + (i + 1) + ": ");
+            terms[i][0] = scanner.nextInt();
+            System.out.print("Enter exponent for term " + (i + 1) + ": ");
+            terms[i][1] = scanner.nextInt();
         }
-        for (int i = 0; i < multiplication.length; i++) {
-            System.out.print(multiplication[i][0] + " " + multiplication[i][1]);
-            System.out.println();
+
+        return terms;
+    }
+
+    /**
+     * Helper method to print polynomial
+     * 
+     * @param polynomial - Polynomial array to be printed
+     */
+    public static void printPolynomial(int[][] polynomial) {
+        for (int i = 0; i < polynomial.length; i++) {
+            if (i > 0 && polynomial[i][0] > 0) {
+                System.out.print("+");
+            }
+            System.out.print(polynomial[i][0] + "x^" + polynomial[i][1]);
         }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the first polynomial");
+        int[][] polynomial = inputPolynomial();
+        Poly poly1 = new Poly(polynomial);
+
+        System.out.println("Enter the second polynomial");
+        int[][] polynomial2 = inputPolynomial();
+        Poly poly2 = new Poly(polynomial2);
+
+        System.out.println("User entered following polynomials:");
+        System.out.println("Polynomial1: ");
+        printPolynomial(polynomial);
+        System.out.println("Polynomial2: ");
+        printPolynomial(polynomial2);
+        System.out.println("Enter a value at which to evaluate polynomials:");
+        int x = scanner.nextInt();
+        System.out.println("The value of polynomial1 at " + x + " is " + poly1.evaluate(x));
+        System.out.println("The value of polynomial2 at " + x + " is " + poly2.evaluate(x));
+
+        System.out.println("The degree of polynomial1 is " + poly1.degreeOfPolynomial(polynomial));
+        System.out.println("The degree of polynomial2 is " + poly2.degreeOfPolynomial(polynomial2));
+        int[][] addition = poly1.sumOfPolynomial(poly1, poly2);
+        int[][] multiplication = poly1.multiplicationOfPolynomial(poly1, poly2);
+
+        System.out.println("The addition of Polynomial1 and Polynomial 2 is: ");
+        printPolynomial(addition);
+
+        System.out.println("The multiplication of Polynomial1 and Polynomial 2 is: ");
+        printPolynomial(multiplication);
+        scanner.close();
     }
 }

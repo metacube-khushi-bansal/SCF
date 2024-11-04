@@ -23,6 +23,26 @@ public final class SparseMatrix {
 
         this.elements = nonZeroElements.toArray(new int[0][3]);
     }
+ 
+   /**
+    * To convert the input matrix by user into a sparse matrix
+    * @param fullMatrix - Input entered by the user
+    */
+    public SparseMatrix(int[][] fullMatrix) {
+        this.rows = fullMatrix.length;
+        this.cols = fullMatrix[0].length;
+
+        List<int[]> nonZeroElements = new ArrayList<>();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (fullMatrix[i][j] != 0) {
+                    nonZeroElements.add(new int[]{i, j, fullMatrix[i][j]});
+                }
+            }
+        }
+        
+        this.elements = nonZeroElements.toArray(new int[0][3]);
+    }
 
     public SparseMatrix transpose() {
         int[][] transposedElements = new int[elements.length][3];
@@ -166,34 +186,30 @@ public final class SparseMatrix {
         System.out.println("Enter rows and columns of Matrix A:");
         int rowsA = scanner.nextInt();
         int colsA = scanner.nextInt();
-
-        System.out.println("Enter number of non-zero elements in Matrix A:");
-        int numElementsA = scanner.nextInt();
-        int[][] elementsA = new int[numElementsA][3];
-        System.out.println("Enter non-zero elements in format 'row col value':");
-        for (int i = 0; i < numElementsA; i++) {
-            elementsA[i][0] = scanner.nextInt();
-            elementsA[i][1] = scanner.nextInt();
-            elementsA[i][2] = scanner.nextInt();
+        
+        int[][] fullMatrixA = new int[rowsA][colsA];
+        System.out.println("Enter elements of Matrix A:");
+        for (int i = 0; i < rowsA; i++) {
+            for (int j = 0; j < colsA; j++) {
+                fullMatrixA[i][j] = scanner.nextInt();
+            }
         }
-
-        SparseMatrix matrixA = new SparseMatrix(rowsA, colsA, elementsA);
+        
+        SparseMatrix matrixA = new SparseMatrix(fullMatrixA);
 
         System.out.println("Enter rows and columns of Matrix B:");
         int rowsB = scanner.nextInt();
         int colsB = scanner.nextInt();
-
-        System.out.println("Enter number of non-zero elements in Matrix B:");
-        int numElementsB = scanner.nextInt();
-        int[][] elementsB = new int[numElementsB][3];
-        System.out.println("Enter non-zero elements in format 'row col value':");
-        for (int i = 0; i < numElementsB; i++) {
-            elementsB[i][0] = scanner.nextInt();
-            elementsB[i][1] = scanner.nextInt();
-            elementsB[i][2] = scanner.nextInt();
+        
+        int[][] fullMatrixB = new int[rowsB][colsB];
+        System.out.println("Enter elements of Matrix B:");
+        for (int i = 0; i < rowsB; i++) {
+            for (int j = 0; j < colsB; j++) {
+                fullMatrixB[i][j] = scanner.nextInt();
+            }
         }
-
-        SparseMatrix matrixB = new SparseMatrix(rowsB, colsB, elementsB);
+        
+        SparseMatrix matrixB = new SparseMatrix(fullMatrixB);
 
         while (true) {
             System.out.println("\nChoose an operation:");
@@ -245,4 +261,5 @@ public final class SparseMatrix {
             }
         }
     }
+    
 }

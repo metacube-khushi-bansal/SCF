@@ -23,11 +23,12 @@ public final class SparseMatrix {
 
         this.elements = nonZeroElements.toArray(new int[0][3]);
     }
- 
-   /**
-    * To convert the input matrix by user into a sparse matrix
-    * @param fullMatrix - Input entered by the user
-    */
+
+    /**
+     * To convert the input matrix by user into a sparse matrix
+     * 
+     * @param fullMatrix - Input entered by the user
+     */
     public SparseMatrix(int[][] fullMatrix) {
         this.rows = fullMatrix.length;
         this.cols = fullMatrix[0].length;
@@ -36,14 +37,20 @@ public final class SparseMatrix {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if (fullMatrix[i][j] != 0) {
-                    nonZeroElements.add(new int[]{i, j, fullMatrix[i][j]});
+                    nonZeroElements.add(new int[] { i, j, fullMatrix[i][j] });
                 }
             }
         }
-        
+
         this.elements = nonZeroElements.toArray(new int[0][3]);
     }
 
+    /**
+     * To calculate the transpose of a matrix
+     * 
+     * @return The sparse matrix- represents the transpose
+     *         Time Complexity - O (N), N-> No. of non-zero elements
+     */
     public SparseMatrix transpose() {
         int[][] transposedElements = new int[elements.length][3];
         for (int i = 0; i < elements.length; i++) {
@@ -59,6 +66,7 @@ public final class SparseMatrix {
      * transpose
      * 
      * @return boolea - true if matrix symmetrical otherwise false
+     *         Time Complexity - O (N) * O(N) = O(N^2), N-> No. of non-zero elements
      */
     public boolean isSymmetrical() {
         if (rows != cols)
@@ -85,6 +93,9 @@ public final class SparseMatrix {
      * 
      * @param other - Matrix which is to be added
      * @return Matrix which is resultant addition
+     *         Time Complexity - O (N) + O (K), N-> No. of non-zero elements in
+     *         matrix1, K-> No. Of non zero elements in matrix2
+     * 
      */
     public SparseMatrix add(SparseMatrix other) {
         if (this.rows != other.rows || this.cols != other.cols) {
@@ -129,6 +140,8 @@ public final class SparseMatrix {
      * 
      * @param other - Matrix which is to be multiplied
      * @return Matrix which is resultant multiplication
+     *         Time Complexity - O (N) * O (K), N-> No. of non-zero elements of
+     *         Matrix1, K-> No. of non zero elements of matrix2
      */
     public SparseMatrix multiply(SparseMatrix other) {
         if (this.cols != other.rows) {
@@ -186,7 +199,7 @@ public final class SparseMatrix {
         System.out.println("Enter rows and columns of Matrix A:");
         int rowsA = scanner.nextInt();
         int colsA = scanner.nextInt();
-        
+
         int[][] fullMatrixA = new int[rowsA][colsA];
         System.out.println("Enter elements of Matrix A:");
         for (int i = 0; i < rowsA; i++) {
@@ -194,13 +207,13 @@ public final class SparseMatrix {
                 fullMatrixA[i][j] = scanner.nextInt();
             }
         }
-        
+
         SparseMatrix matrixA = new SparseMatrix(fullMatrixA);
 
         System.out.println("Enter rows and columns of Matrix B:");
         int rowsB = scanner.nextInt();
         int colsB = scanner.nextInt();
-        
+
         int[][] fullMatrixB = new int[rowsB][colsB];
         System.out.println("Enter elements of Matrix B:");
         for (int i = 0; i < rowsB; i++) {
@@ -208,7 +221,7 @@ public final class SparseMatrix {
                 fullMatrixB[i][j] = scanner.nextInt();
             }
         }
-        
+
         SparseMatrix matrixB = new SparseMatrix(fullMatrixB);
 
         while (true) {
@@ -261,5 +274,5 @@ public final class SparseMatrix {
             }
         }
     }
-    
+
 }

@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-
 public class App {
     public static void main(String[] args) throws Exception {
 
@@ -25,11 +24,13 @@ public class App {
         screen.addShape(triangle);
 
 
-       Map<Shape, LocalDateTime> timeStamps = screen.getTimeStamps();
-       for(Shape shape: timeStamps.keySet()){
-        System.out.println("Shape:" + shape.getClass().getSimpleName() + " Time created: " + timeStamps.get(shape));
-       }
+        Shape  polygon1 = ShapeFactory.createShape(Shape.ShapeType.Polygon, new Point(50, 50), List.of(10,6,60));
+        screen.addShape(polygon1);
 
+        Map<Shape, LocalDateTime> timeStamps = screen.getTimeStamps();
+        for (Shape shape : timeStamps.keySet()) {
+            System.out.println("Shape:" + shape.getClass().getSimpleName() + " Time created: " + timeStamps.get(shape));
+        }
 
         // Displaying shapes sorted by area
         List<Shape> sortedByArea = screen.getShapesSortedBy(Comparator.comparingDouble(Shape::getArea));
@@ -60,8 +61,8 @@ public class App {
         System.out.println("Shapes sorted by Perimeter:");
         for (Shape shape : sortedByPerimeter1) {
             System.out.println(shape.getClass().getSimpleName() + " - Perimeter: " + shape.getPerimeter());
-
         }
-        
+
+
     }
 }

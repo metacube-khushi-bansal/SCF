@@ -74,12 +74,17 @@ public class App {
                     String depttName = scanner.nextLine();
                     Department targettDept = organisation.getDepartmentByName(depttName);
                     if (targettDept != null) {
-                        System.out.println("Enter employee Id to be deleted");
+                        //System.out.println(targettDept);
+                        System.out.println("Enter employee Name to be deleted");
                         String employeeName = scanner.nextLine();
-                        List<Employee> employeesOfDept = targettDept.getEmployees();
+                        List<Employee> employeesOfDept = targettDept.getEmployees();////check
+                        for(Employee e: employeesOfDept){
+                            System.out.println(e.getEmployeeName());
+                        }
                         for (Employee employee : employeesOfDept) {
-                            if (employee.getEmployeeName() == employeeName) {
+                            if (employee.getEmployeeName().equals(employeeName)) {
                                 targettDept.relieve(employee);
+                                break;
                             }
                         }
                         System.out.println("Employee Name not found");
